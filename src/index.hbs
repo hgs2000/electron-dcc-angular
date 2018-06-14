@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="description" content="Electron Angular Webpack Demo App">
-		<base href="<%= htmlWebpackPlugin.options.baseHref %>">
-		<title>Electron Angular Webpack</title>
-        <link rel="stylesheet" href="global.scss">
-    </head>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Electron Angular Webpack Demo App">
+	<base href="<%= htmlWebpackPlugin.options.baseHref %>">
+	<title>Controle de Clientes - Direcon</title>
+	<link rel="stylesheet" href="global.scss">
+</head>
 
-	<body>
-		<demo-app>Loading ...</demo-app>
-	</body>
+<body>
+
+	<navbar></navbar>
+	<main-app></main-app>
+	<p>Pagina carregou
+	</p>
+	<script type="text/javascript" src="./src/assets/jquery-3.3.1.js" />
+</body>
 
 </html>
