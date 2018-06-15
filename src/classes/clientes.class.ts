@@ -1,6 +1,8 @@
+//Importações
 import { Telefone } from "./telefones.class";
-import { CPF, CNPJ } from "./pessoas.class";
+import { CPF, CNPJ } from "./codigos.class";
 
+//Classes
 abstract class Cliente {
     private tfixo: Telefone = null;
     private tcelu: Telefone = null;
