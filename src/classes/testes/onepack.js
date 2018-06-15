@@ -20,25 +20,41 @@ class Cliente {
             return this.tfixo.get();
         }
         else {
-            "";
+            return "Não disponível";
         }
     }
     set TELEFONE(novo) { this.tfixo = new Telefone(novo); }
     get CELULAR() {
         if (this.tfixo !== null) {
-            return this.tfixo.get();
+            return this.tcelu.get();
         }
         else {
-            "";
+            return "Não disponível";
         }
     }
     set CELULAR(novo) { this.tfixo = new Telefone(novo); }
+}
+class PessoaFisica extends Cliente {
+    constructor(cpf, nome, email, telefone = "", celular = "") {
+        super(nome, email, telefone, celular);
+        this.cpf = new CPF(cpf);
+    }
+    get CPF() { return this.cpf.get; }
+    set CPF(novo) { this.cpf.set = novo; }
+}
+class PessoaJuridica extends Cliente {
+    constructor(cnpj, nome, email, telefone = "", celular = "") {
+        super(nome, email, telefone, celular);
+        this.cnpj = new CNPJ(cnpj);
+    }
+    get CNPJ() { return this.cnpj.get; }
+    set CNPJ(novo) { this.cnpj.set = novo; }
 }
 class Codigo {
     get get() { return `${this.corpo}-${this.digito}`; }
     set set(novo) {
         let split = this.split(novo);
-        if (this.valido) {
+        if (/(^\d{3}\.\d{3}\.\d{3}\-\d{2}$)|(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)/.test(novo)) {
             this.corpo = split[0];
             this.digito = split[1];
         }
@@ -62,6 +78,7 @@ class CPF extends Codigo {
         }
         soma = this.calcula([this.corpo, digito], 11);
         digito += 11 - (soma % 11);
+        console.log(digito);
         return digito === this.digito;
     }
     calcula(vals, cont1) {
@@ -150,6 +167,17 @@ class Telefone {
         }
     }
 }
-let cli = new Cliente("", "", "47 33393773", "47996439994");
-console.log(`Telefone Fixo: ${cli.TELEFONE}`);
-console.log(`Telefone Celular ${cli.CELULAR}`);
+/*let cpf = new PessoaFisica("050.022.899-08", "Henrique Starosky", "hgs.true@gmail.com");
+console.log(
+`CPF: ${cpf.CPF}
+Nome: ${cpf.NOME}
+Email: ${cpf.EMAIL}
+Telefone Fixo: ${cpf.TELEFONE}
+Telefone Celular: ${cpf.CELULAR}`
+);*/
+let cpf = new PessoaJuridica("72746.534/0001-72", "Henrique Starosky", "hgs.true@gmail.com");
+console.log(`cnpj: ${cpf.CNPJ}
+Nome: ${cpf.NOME}
+Email: ${cpf.EMAIL}
+Telefone Fixo: ${cpf.TELEFONE}
+Telefone Celular: ${cpf.CELULAR}`);

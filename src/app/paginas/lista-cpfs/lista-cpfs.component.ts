@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
     styleUrls: [require('./lista-cpfs.component.scss')]
 })
 export class ListaCPFsComponent {
+    pessoas: Array<PessoaFisica> = new Array<PessoaFisica>()
+    get PESSOAS() {
+        return this.pessoas;
+    }
 }

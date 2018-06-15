@@ -1,6 +1,7 @@
 import { Telefone } from "./telefones.class";
+import { CPF, CNPJ } from "./pessoas.class";
 
-class Cliente {
+abstract class Cliente {
     private tfixo: Telefone = null;
     private tcelu: Telefone = null;
     constructor(
@@ -21,25 +22,54 @@ class Cliente {
     set NOME(novo: string) { this.nome = novo; }
     get EMAIL() { return this.email }
     set EMAIL(novo: string) { this.email }
-    get TELEFONE() {
+    get TELEFONE(): string {
         if (this.tfixo !== null) {
             return this.tfixo.get()
         } else {
-            ""
+            return "Não disponível"
         }
     }
     set TELEFONE(novo: string) { this.tfixo = new Telefone(novo) }
-    get CELULAR() {
+    get CELULAR(): string {
         if (this.tfixo !== null) {
-            return this.tfixo.get()
+            return this.tcelu.get()
         } else {
-            ""
+            return "Não disponível"
         }
     }
     set CELULAR(novo: string) { this.tfixo = new Telefone(novo) }
 }
 
-let cli = new Cliente("", "", "47 33393773", "47996439994");
-console.log(`Telefone Fixo: ${cli.TELEFONE}`);
-console.log(`Telefone Celular ${cli.CELULAR}`);
+export class PessoaFisica extends Cliente {
+    private cpf: CPF;
+    constructor(
+        cpf: string,
+        nome: string,
+        email: string,
+        telefone: string = "",
+        celular: string = ""
+    ) {
+        super(nome, email, telefone, celular);
+        this.CPF = cpf;
+    }
+
+    get CPF() { return this.cpf.get; }
+    set CPF(novo: string) { this.cpf.set = novo }
+}
+
+export class PessoaJuridica extends Cliente {
+    private cnpj: CNPJ;
+    constructor(
+        cnpj: string,
+        nome: string,
+        email: string,
+        telefone: string = "",
+        celular: string = ""
+    ) {
+        super(nome, email, telefone, celular);
+        this.cnpj = new CNPJ(cnpj);
+    }
+    get CNPJ() { return this.cnpj.get; }
+    set CNPJ(novo: string) { this.cnpj.set = novo }
+}
 

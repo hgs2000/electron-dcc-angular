@@ -35,6 +35,3 @@ class Cliente {
     }
     set CELULAR(novo) { this.tfixo = new Telefone(novo); }
 }
-let cli = new Cliente("", "", "47 33393773", "47996439994");
-console.log(`Telefone Fixo: ${cli.TELEFONE}`);
-console.log(`Telefone Celular ${cli.CELULAR}`);

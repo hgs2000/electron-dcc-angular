@@ -4,7 +4,7 @@ abstract class Codigo {
     get get() { return `${this.corpo}-${this.digito}` }
     set set(novo: string) {
         let split = this.split(novo);
-        if (this.valido) {
+        if (/(^\d{3}\.\d{3}\.\d{3}\-\d{2}$)|(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)/.test(novo)) {
             this.corpo = split[0];
             this.digito = split[1];
         } else {

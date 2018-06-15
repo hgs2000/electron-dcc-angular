@@ -1,4 +1,4 @@
-class Cliente {
+abstract class Cliente {
     private tfixo: Telefone = null;
     private tcelu: Telefone = null;
     constructor(
@@ -19,22 +19,53 @@ class Cliente {
     set NOME(novo: string) { this.nome = novo; }
     get EMAIL() { return this.email }
     set EMAIL(novo: string) { this.email }
-    get TELEFONE() {
+    get TELEFONE(): string {
         if (this.tfixo !== null) {
             return this.tfixo.get()
         } else {
-            ""
+            return "Não disponível"
         }
     }
     set TELEFONE(novo: string) { this.tfixo = new Telefone(novo) }
-    get CELULAR() {
+    get CELULAR(): string {
         if (this.tfixo !== null) {
-            return this.tfixo.get()
+            return this.tcelu.get()
         } else {
-            ""
+            return "Não disponível"
         }
     }
     set CELULAR(novo: string) { this.tfixo = new Telefone(novo) }
+}
+class PessoaFisica extends Cliente {
+    private cpf: CPF;
+    constructor(
+        cpf: string,
+        nome: string,
+        email: string,
+        telefone: string = "",
+        celular: string = ""
+    ) {
+        super(nome, email, telefone, celular);
+        this.cpf = new CPF(cpf);
+    }
+
+    get CPF() { return this.cpf.get; }
+    set CPF(novo: string) { this.cpf.set = novo }
+}
+class PessoaJuridica extends Cliente {
+    private cnpj: CNPJ;
+    constructor(
+        cnpj: string,
+        nome: string,
+        email: string,
+        telefone: string = "",
+        celular: string = ""
+    ) {
+        super(nome, email, telefone, celular);
+        this.cnpj = new CNPJ(cnpj);
+    }
+    get CNPJ() { return this.cnpj.get; }
+    set CNPJ(novo: string) { this.cnpj.set = novo }
 }
 abstract class Codigo {
     corpo: string;
@@ -42,7 +73,7 @@ abstract class Codigo {
     get get() { return `${this.corpo}-${this.digito}` }
     set set(novo: string) {
         let split = this.split(novo);
-        if (this.valido) {
+        if (/(^\d{3}\.\d{3}\.\d{3}\-\d{2}$)|(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)/.test(novo)) {
             this.corpo = split[0];
             this.digito = split[1];
         } else {
@@ -53,7 +84,6 @@ abstract class Codigo {
     private split(cpf: string): Array<string> { return cpf.split('-'); }
     constructor(valor: string) { this.set = valor; }
 }
-
 class CPF extends Codigo {
     get valido(): boolean {
         let soma = this.calcula([this.corpo], 10) % 11;
@@ -65,6 +95,7 @@ class CPF extends Codigo {
         }
         soma = this.calcula([this.corpo, digito], 11);
         digito += 11 - (soma % 11);
+        console.log(digito)
         return digito === this.digito;
     }
     private calcula(vals: Array<string>, cont1: number): number {
@@ -82,7 +113,6 @@ class CPF extends Codigo {
         return soma;
     }
 }
-
 class CNPJ extends Codigo {
     get valido(): boolean {
         let digito = "";
@@ -156,6 +186,19 @@ class Telefone {
     }
 }
 
-let cli = new Cliente("", "", "47 33393773", "47996439994");
-console.log(`Telefone Fixo: ${cli.TELEFONE}`);
-console.log(`Telefone Celular ${cli.CELULAR}`);
+/*let cpf = new PessoaFisica("050.022.899-08", "Henrique Starosky", "hgs.true@gmail.com");
+console.log(
+`CPF: ${cpf.CPF}
+Nome: ${cpf.NOME}
+Email: ${cpf.EMAIL}
+Telefone Fixo: ${cpf.TELEFONE}
+Telefone Celular: ${cpf.CELULAR}`
+);*/
+/*let cpf = new PessoaJuridica("72.746.534/0001-72", "Henrique Starosky", "hgs.true@gmail.com");
+console.log(
+    `cnpj: ${cpf.CNPJ}
+Nome: ${cpf.NOME}
+Email: ${cpf.EMAIL}
+Telefone Fixo: ${cpf.TELEFONE}
+Telefone Celular: ${cpf.CELULAR}`
+);*/
