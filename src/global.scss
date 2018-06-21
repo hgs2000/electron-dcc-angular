@@ -5,13 +5,7 @@
   src: local('Raleway'), local('Raleway-Regular'), url('./assets/fonts/Raleway-Regular.woff2') format('woff2');
 }
 
-@font-face {
-  font-family: 'Glyphicons';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Glyphicons'), url('./assets/bootstrap-3.3.7/fonts/bootstrap/glyphicons-halflings-regular.woff2') format('woff2');
-}
 
 body{
-  font-family: 'Glyphicons', 'Raleway'
+  font-family: cursive, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }

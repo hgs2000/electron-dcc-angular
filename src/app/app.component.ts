@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'main-app',
     templateUrl: require('./app.component.html'),
-    styleUrls: [require('./app.component.scss'), require('../assets/bootstrap-3.3.7/stylesheets/_bootstrap.scss')]
+    styleUrls: [require('./app.component.scss')]
 })
 export class AppComponent {
     title = "Controle de Clientes Direcon"
